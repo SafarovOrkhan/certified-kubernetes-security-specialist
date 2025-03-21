@@ -1,0 +1,15 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages:
+  - "RequestReceived"
+rules:
+  #  full auditing to pods
+  - level: RequestResponse
+    resources:
+    - group: ""
+      resources: ["pods"]
+  #  full auditing to deployments
+  - level: RequestResponse
+    resources:
+    - group: "apps"
+      resources: ["deployments"]
