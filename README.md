@@ -46,3 +46,18 @@ kubectl proxy → Create a local API server proxy to access Kubernetes API witho
 
 falco → can be installed via service or daemonset in kuberntes . rules can be defined and be able to track container level commands and events . generate output. can save them either to file or directly sends them to webhook like slack or any other 
 
+
+
+# DOCKERFILE 
+
+# use specific image, if possible use small images
+FROM ubuntu:20.04 
+
+# each RUN statement cahces to one layer , so keep it simple
+RUN apt-get update && apt-get -y install curl
+
+# define ENV files
+ENV URL https://google.com/this-will-fail?secret-token=
+
+# use CMD. $TOKEN will be given as variable during run command .
+CMD ["sh", "-c", "curl --head $URL$TOKEN"]
