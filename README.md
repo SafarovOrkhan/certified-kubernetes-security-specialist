@@ -43,3 +43,6 @@ Strace → Debug syscalls made by a container to analyze behavior or detect susp
 AquaSec Tracee → Runtime security monitoring and eBPF-based threat detection in Kubernetes.
 
 kubectl proxy → Create a local API server proxy to access Kubernetes API without configuring authentication (useful for testing/debugging).
+
+falco → can be installed via service or daemonset in kuberntes . rules can be defined and be able to track container level commands and events . generate output. can save them either to file or directly sends them to webhook like slack or any other 
+
