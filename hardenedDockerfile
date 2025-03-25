@@ -1,0 +1,28 @@
+# Use a minimal and secure base image
+FROM debian:bookworm-slim
+
+# Set a non-root user
+RUN useradd -m appuser
+
+# Install only necessary dependencies with no recommended extras
+RUN apt-get update && apt-get -y install --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*  # Remove package lists to reduce image size
+
+# Set environment variables securely (avoid storing secrets in ENV)
+ENV URL="https://google.com/this-will-fail?secret-token="
+
+# Create an application directory with appropriate permissions
+RUN mkdir /app && chown appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Define a read-only volume (if needed for temporary storage)
+VOLUME /tmp
+
+# Implement a health check to ensure the container is functioning correctly
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -fsSL https://example.com || exit 1
+
+# Define the main command, ensuring variables are expanded properly
+CMD ["sh", "-c", "curl --head \"$URL$TOKEN\""]

@@ -53,7 +53,7 @@ falco → can be installed via service or daemonset in kuberntes . rules can be 
 # use specific image, if possible use small images
 FROM ubuntu:20.04 
 
-# each RUN statement cahces to one layer , so keep it simple
+# each RUN statement caches to one layer , so keep it simple
 RUN apt-get update && apt-get -y install curl
 
 # define ENV files
